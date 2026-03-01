@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 interface OpalPendantProps {
   show: boolean;
@@ -12,6 +12,7 @@ const TEAR_DELAY = MESSAGE.length * 0.15 + 2; // wait for message to finish + 2s
 const OpalPendant = ({ show }: OpalPendantProps) => {
   const [touched, setTouched] = useState(false);
   const [showTears, setShowTears] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   // Reset state when hiding
   useEffect(() => {
@@ -20,6 +21,25 @@ const OpalPendant = ({ show }: OpalPendantProps) => {
       setShowTears(false);
     }
   }, [show]);
+
+  // Pre-load and unlock audio on user touch (critical for mobile)
+  const handleTouch = () => {
+    const audio = new Audio("/audio/voice.m4a");
+    audio.volume = 0.8;
+    audio.load(); // pre-load
+    // Unlock audio context on mobile by playing then immediately pausing
+    const unlockPromise = audio.play();
+    if (unlockPromise) {
+      unlockPromise.then(() => {
+        audio.pause();
+        audio.currentTime = 0;
+      }).catch(() => {
+        // Still store the ref - we'll try again later
+      });
+    }
+    audioRef.current = audio;
+    setTouched(true);
+  };
 
   useEffect(() => {
     if (!touched) {
@@ -34,9 +54,11 @@ const OpalPendant = ({ show }: OpalPendantProps) => {
   useEffect(() => {
     if (!showTears) return;
     const voiceTimer = setTimeout(() => {
-      const audio = new Audio("/audio/voice.m4a");
-      audio.volume = 0.8;
-      audio.play().catch(() => {});
+      const audio = audioRef.current;
+      if (audio) {
+        audio.currentTime = 0;
+        audio.play().catch(() => {});
+      }
     }, 2000);
     return () => clearTimeout(voiceTimer);
   }, [showTears]);
@@ -45,6 +67,28 @@ const OpalPendant = ({ show }: OpalPendantProps) => {
     <AnimatePresence>
       {show && (
         <div className="absolute inset-0 flex flex-col items-center justify-center">
+          {/* Pulsing tap indicator ring */}
+          <AnimatePresence>
+            {!touched && (
+              <motion.div
+                className="absolute inset-0 flex items-center justify-center pointer-events-none"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <motion.div
+                  className="absolute w-24 h-28 rounded-full border border-primary/30"
+                  style={{ borderRadius: "45% 45% 50% 50%" }}
+                  animate={{
+                    scale: [1, 1.3, 1],
+                    opacity: [0.4, 0, 0.4],
+                  }}
+                  transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+
           {/* Floating opal */}
           <motion.div
             className="relative cursor-pointer z-10"
@@ -63,7 +107,7 @@ const OpalPendant = ({ show }: OpalPendantProps) => {
               x: { duration: touched ? 10 : 15, repeat: Infinity, ease: "easeInOut" },
               rotate: { duration: 10, repeat: Infinity, ease: "easeInOut" },
             }}
-            onClick={() => setTouched(true)}
+            onClick={handleTouch}
             whileHover={{ scale: touched ? 1.35 : 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
