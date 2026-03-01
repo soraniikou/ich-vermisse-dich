@@ -116,29 +116,31 @@ const OpalPendant = ({ show }: OpalPendantProps) => {
           <AnimatePresence>
             {touched && (
               <motion.div
-                className="mt-8 flex flex-wrap justify-center gap-0 max-w-xs z-10"
+                className="mt-8 z-10"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
               >
-                {MESSAGE.split("").map((char, i) => (
-                  <motion.span
-                    key={i}
-                    className="font-display text-lg md:text-2xl tracking-widest"
-                    style={{
-                      color: "hsl(168 60% 88% / 0.7)",
-                      textShadow: "0 0 20px hsl(168 60% 88% / 0.3)",
-                    }}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 0.8, y: 0 }}
-                    transition={{
-                      duration: 0.6,
-                      delay: i * 0.15,
-                      ease: "easeOut",
-                    }}
-                  >
-                    {char}
-                  </motion.span>
-                ))}
+                <div className="flex flex-nowrap justify-center">
+                  {MESSAGE.split("").map((char, i) => (
+                    <motion.span
+                      key={i}
+                      className="font-display text-lg md:text-2xl inline-block"
+                      style={{
+                        color: "hsl(168 60% 88% / 0.7)",
+                        textShadow: "0 0 20px hsl(168 60% 88% / 0.3)",
+                      }}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 0.8, y: 0 }}
+                      transition={{
+                        duration: 0.6,
+                        delay: i * 0.15,
+                        ease: "easeOut",
+                      }}
+                    >
+                      {char}
+                    </motion.span>
+                  ))}
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
