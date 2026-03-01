@@ -92,7 +92,7 @@ const Index = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 1 }}
           >
-            こころの器
+            超えられない夜を抱きしめる
           </motion.h1>
         )}
       </AnimatePresence>
@@ -143,7 +143,7 @@ const Index = () => {
               value={text}
               onChange={handleTextChange}
               placeholder="いま感じていることを、ここに..."
-              className="w-full bg-transparent border-b border-border text-foreground placeholder:text-muted-foreground font-body text-sm md:text-base resize-none focus:outline-none focus:border-primary/40 transition-colors pb-2 text-center"
+              className="w-full bg-transparent border-b border-border text-foreground placeholder:text-muted-foreground font-body text-sm md:text-base resize-none focus:outline-none focus:border-primary/40 transition-colors pb-2 text-center relative z-20"
               style={{ caretColor: "hsl(168, 60%, 88%)" }}
               rows={2}
             />
