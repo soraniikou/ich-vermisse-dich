@@ -1,73 +1,38 @@
-# Welcome to your Lovable project
+🌃yoruwokoeru - 超えられない夜を そっと抱きしめる
 
-## Project info
+「一生泣かない」と決めて毅然と生きてきたあなたへ。
+このアプリは、理性の鎧を脱ぎ、言葉にできない涙を「剥き出しの宝石（オパール）」へと昇華させるための聖域です。
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+🪐 Concept - コンセプト
+経験によって混ざり合い、時には汚れたと感じる感情の色彩。
+それらが一本の光の柱へと統合され、最終的には透明な水晶や虹色に輝くオパールへと変わっていく。
+本来の自分を見つめ、「生きているだけで奇跡にあふれている」ことを思い出すための、反重力（Antigravity）メンタルケア体験。
 
-## How can I edit this code?
+- 自己受容の調べ: 切なくも温かい世界観。
+- 声の灯火: 開発者自身の声による「泣いていいよ」という全肯定のメッセージ。
 
-There are several ways of editing your application.
+ Screenshots
+<table>
+  <tr>
+    <td><img src="yoruwokoeru.png" width="300" alt="App Screenshot 1"></td>
+    <td><img src="yoruwokoeru1.png" width="300" alt="App Screenshot 2"></td>
+  </tr>
+</table>
 
-**Use Lovable**
+ ✨ Features - 主な機能
+- **Emotional Integration**: ぼやけた感情を視覚化し、光のタワーへと統合するアニメーション。
+- **Opal Transformation**: 感情を水色のオパールへと昇華させ、重力から解放する体験。
+- **Voice Healing**: 孤独な夜に寄り添う、優しく語りかける音声ガイド。
+- **Antigravity UI**: 心の重荷を浮遊させ、視界からそっと離す、あるいは抱きしめるためのインターフェース。
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+Tech Stack
+- **Framework**: [Lovable](https://lovable.app/)
+- **Frontend**: React, TypeScript, Tailwind CSS
+- **Build Tool**: Vite
+- **AI Integration**: Dify (Conceptual Backend)
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🔗 Live Demo
+[yoruwokoeru - Live App](https://ich-vermisse-dich.lovable.app)
 
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+---
+「超えられない夜を、そっと抱きしめる。あなたは、泣いていい。」
