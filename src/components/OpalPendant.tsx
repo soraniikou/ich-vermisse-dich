@@ -22,6 +22,17 @@ const OpalPendant = ({ show }: OpalPendantProps) => {
     return () => clearTimeout(timer);
   }, [touched]);
 
+  // Play voice 2 seconds after tears appear
+  useEffect(() => {
+    if (!showTears) return;
+    const voiceTimer = setTimeout(() => {
+      const audio = new Audio("/audio/voice.m4a");
+      audio.volume = 0.8;
+      audio.play().catch(() => {});
+    }, 2000);
+    return () => clearTimeout(voiceTimer);
+  }, [showTears]);
+
   return (
     <AnimatePresence>
       {show && (
@@ -117,12 +128,13 @@ const OpalPendant = ({ show }: OpalPendantProps) => {
                       key={`tear-${i}`}
                       className="absolute rounded-full"
                       style={{
-                        width: 4 + Math.random() * 3,
-                        height: 6 + Math.random() * 4,
+                        width: 5 + Math.random() * 3,
+                        height: 8 + Math.random() * 5,
                         left: `${40 + i * 5}%`,
                         top: "80%",
-                        background: `radial-gradient(ellipse, hsl(190 85% 80% / 0.8), hsl(195 75% 70% / 0.4))`,
-                        borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%",
+                        background: `radial-gradient(ellipse at 50% 30%, hsl(190 90% 85% / 0.9), hsl(195 80% 70% / 0.5))`,
+                        borderRadius: "50% 50% 50% 50% / 70% 70% 30% 30%",
+                        clipPath: "polygon(50% 0%, 85% 45%, 100% 70%, 85% 90%, 50% 100%, 15% 90%, 0% 70%, 15% 45%)",
                       }}
                       initial={{ opacity: 0, y: 0, scale: 0.3 }}
                       animate={{
