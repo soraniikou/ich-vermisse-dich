@@ -5,13 +5,15 @@ interface OpalPendantProps {
   show: boolean;
 }
 
+const MESSAGE = "超えられない夜をそっと抱きしめる";
+
 const OpalPendant = ({ show }: OpalPendantProps) => {
   const [touched, setTouched] = useState(false);
 
   return (
     <AnimatePresence>
       {show && (
-        <div className="absolute inset-0 flex items-center justify-center">
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
           {/* Floating opal */}
           <motion.div
             className="relative cursor-pointer z-10"
@@ -58,10 +60,6 @@ const OpalPendant = ({ show }: OpalPendantProps) => {
                   ? `0 0 40px hsl(168 60% 88% / 0.5), 0 0 80px hsl(275 35% 90% / 0.3), 0 0 120px hsl(340 60% 70% / 0.15), inset 0 0 20px hsl(168 60% 88% / 0.2)`
                   : `0 0 30px hsl(168 60% 88% / 0.3), 0 0 60px hsl(275 35% 90% / 0.2), inset 0 -5px 15px hsl(340 60% 70% / 0.15)`,
               }}
-              animate={touched ? {
-                backgroundSize: ["400% 400%", "200% 200%", "400% 400%"],
-              } : {}}
-              transition={{ duration: 4, repeat: Infinity }}
             >
               {/* Thread */}
               <div
@@ -82,7 +80,6 @@ const OpalPendant = ({ show }: OpalPendantProps) => {
                 }}
                 transition={{ duration: 2, repeat: Infinity }}
               />
-
               {/* Inner light when touched */}
               <AnimatePresence>
                 {touched && (
@@ -100,40 +97,48 @@ const OpalPendant = ({ show }: OpalPendantProps) => {
             </motion.div>
           </motion.div>
 
-          {/* Revealed message */}
+          {/* Touch hint label */}
+          <AnimatePresence>
+            {!touched && (
+              <motion.span
+                className="mt-6 font-body text-xs tracking-[0.2em] text-muted-foreground"
+                initial={{ opacity: 0, y: -5 }}
+                animate={{ opacity: [0.3, 0.6, 0.3], y: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ opacity: { duration: 2.5, repeat: Infinity }, y: { duration: 0.8 } }}
+              >
+                touch
+              </motion.span>
+            )}
+          </AnimatePresence>
+
+          {/* Revealed message - one character at a time below pendant */}
           <AnimatePresence>
             {touched && (
               <motion.div
-                className="absolute inset-0 flex items-center justify-center pointer-events-none"
+                className="mt-8 flex flex-wrap justify-center gap-0 max-w-xs z-10"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 2 }}
               >
-                <motion.div
-                  className="absolute inset-0"
-                  style={{
-                    background: `radial-gradient(circle, 
-                      hsl(210 38% 16% / 0.6), 
-                      transparent 70%)`,
-                  }}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 3 }}
-                />
-                <motion.p
-                  className="font-display text-lg md:text-2xl tracking-widest text-center leading-relaxed z-10 max-w-xs"
-                  style={{
-                    color: "hsl(168 60% 88% / 0.7)",
-                    textShadow: "0 0 30px hsl(168 60% 88% / 0.3)",
-                  }}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: [0, 0.8, 0.6] }}
-                  transition={{ duration: 4, ease: "easeOut" }}
-                >
-                  超えられない夜を
-                  <br />
-                  そっと抱きしめる
-                </motion.p>
+                {MESSAGE.split("").map((char, i) => (
+                  <motion.span
+                    key={i}
+                    className="font-display text-lg md:text-2xl tracking-widest"
+                    style={{
+                      color: "hsl(168 60% 88% / 0.7)",
+                      textShadow: "0 0 20px hsl(168 60% 88% / 0.3)",
+                    }}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 0.8, y: 0 }}
+                    transition={{
+                      duration: 0.6,
+                      delay: i * 0.15,
+                      ease: "easeOut",
+                    }}
+                  >
+                    {char}
+                  </motion.span>
+                ))}
               </motion.div>
             )}
           </AnimatePresence>
