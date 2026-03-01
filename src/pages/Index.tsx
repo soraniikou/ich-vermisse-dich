@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import CrystalBowl from "@/components/CrystalBowl";
 import FloatingLights, { type LightParticle } from "@/components/FloatingLights";
@@ -62,25 +62,8 @@ const Index = () => {
 
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-background">
-      {/* Background stars */}
-      {Array.from({ length: 30 }).map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute rounded-full bg-foreground"
-          style={{
-            width: Math.random() * 2 + 1,
-            height: Math.random() * 2 + 1,
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-          }}
-          animate={{ opacity: [0.1, 0.4, 0.1] }}
-          transition={{
-            duration: 3 + Math.random() * 4,
-            repeat: Infinity,
-            delay: Math.random() * 3,
-          }}
-        />
-      ))}
+      {/* Background stars - memoize positions */}
+      <BackgroundStars />
 
       {/* Title */}
       <AnimatePresence>
@@ -139,14 +122,33 @@ const Index = () => {
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.8 }}
           >
-            <textarea
-              value={text}
-              onChange={handleTextChange}
-              placeholder="いま感じていることを、ここに..."
-              className="w-full bg-transparent border-b border-border text-foreground placeholder:text-muted-foreground font-body text-sm md:text-base resize-none focus:outline-none focus:border-primary/40 transition-colors pb-2 text-center relative z-20"
-              style={{ caretColor: "hsl(168, 60%, 88%)" }}
-              rows={2}
-            />
+            {/* Input marker icon */}
+            <motion.div
+              className="flex items-center gap-2 text-muted-foreground text-xs tracking-wider"
+              animate={{ opacity: [0.4, 0.7, 0.4] }}
+              transition={{ duration: 3, repeat: Infinity }}
+            >
+              <span className="font-display">✦</span>
+              <span className="font-body">ここに気持ちを書いてください</span>
+              <span className="font-display">✦</span>
+            </motion.div>
+            <div className="relative w-full">
+              <motion.div
+                className="absolute -left-2 top-1/2 -translate-y-1/2 text-primary/40 text-lg"
+                animate={{ x: [0, 3, 0], opacity: [0.3, 0.6, 0.3] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                ›
+              </motion.div>
+              <textarea
+                value={text}
+                onChange={handleTextChange}
+                placeholder="いま感じていることを、ここに..."
+                className="w-full bg-muted/20 rounded-lg px-4 py-3 border border-border text-foreground placeholder:text-muted-foreground font-body text-sm md:text-base resize-none focus:outline-none focus:border-primary/40 focus:ring-1 focus:ring-primary/20 transition-all text-center relative z-20"
+                style={{ caretColor: "hsl(168, 60%, 88%)" }}
+                rows={2}
+              />
+            </div>
             <motion.button
               onClick={handleIntegrate}
               className="font-display text-xs tracking-[0.25em] px-8 py-2.5 rounded-full crystal-border transition-all"
@@ -184,5 +186,28 @@ const Index = () => {
     </div>
   );
 };
+
+const STAR_DATA = Array.from({ length: 30 }).map((_, i) => ({
+  id: i,
+  w: Math.random() * 2 + 1,
+  left: `${Math.random() * 100}%`,
+  top: `${Math.random() * 100}%`,
+  dur: 3 + Math.random() * 4,
+  delay: Math.random() * 3,
+}));
+
+const BackgroundStars = () => (
+  <>
+    {STAR_DATA.map((s) => (
+      <motion.div
+        key={s.id}
+        className="absolute rounded-full bg-foreground"
+        style={{ width: s.w, height: s.w, left: s.left, top: s.top }}
+        animate={{ opacity: [0.1, 0.4, 0.1] }}
+        transition={{ duration: s.dur, repeat: Infinity, delay: s.delay }}
+      />
+    ))}
+  </>
+);
 
 export default Index;
