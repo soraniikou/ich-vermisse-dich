@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface OpalPendantProps {
   show: boolean;
@@ -7,8 +7,20 @@ interface OpalPendantProps {
 
 const MESSAGE = "超えられない夜をそっと抱きしめる";
 
+const TEAR_DELAY = MESSAGE.length * 0.15 + 2; // wait for message to finish + 2s
+
 const OpalPendant = ({ show }: OpalPendantProps) => {
   const [touched, setTouched] = useState(false);
+  const [showTears, setShowTears] = useState(false);
+
+  useEffect(() => {
+    if (!touched) {
+      setShowTears(false);
+      return;
+    }
+    const timer = setTimeout(() => setShowTears(true), TEAR_DELAY * 1000);
+    return () => clearTimeout(timer);
+  }, [touched]);
 
   return (
     <AnimatePresence>
@@ -95,6 +107,42 @@ const OpalPendant = ({ show }: OpalPendantProps) => {
                 )}
               </AnimatePresence>
             </motion.div>
+
+            {/* Teardrops flowing from opal */}
+            <AnimatePresence>
+              {showTears && (
+                <>
+                  {[0, 1, 2, 3, 4].map((i) => (
+                    <motion.div
+                      key={`tear-${i}`}
+                      className="absolute rounded-full"
+                      style={{
+                        width: 4 + Math.random() * 3,
+                        height: 6 + Math.random() * 4,
+                        left: `${40 + i * 5}%`,
+                        top: "80%",
+                        background: `radial-gradient(ellipse, hsl(190 85% 80% / 0.8), hsl(195 75% 70% / 0.4))`,
+                        borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%",
+                      }}
+                      initial={{ opacity: 0, y: 0, scale: 0.3 }}
+                      animate={{
+                        opacity: [0, 0.8, 0.6, 0],
+                        y: [0, 30, 70, 120],
+                        scale: [0.3, 1, 0.8, 0.4],
+                        x: [0, (i - 2) * 3, (i - 2) * 5],
+                      }}
+                      transition={{
+                        duration: 3 + i * 0.5,
+                        delay: i * 1.2,
+                        repeat: Infinity,
+                        repeatDelay: 2,
+                        ease: "easeIn",
+                      }}
+                    />
+                  ))}
+                </>
+              )}
+            </AnimatePresence>
           </motion.div>
 
           {/* Touch hint label */}
