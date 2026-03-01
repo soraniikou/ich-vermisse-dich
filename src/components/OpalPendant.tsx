@@ -17,34 +17,51 @@ const OpalPendant = ({ show }: OpalPendantProps) => {
             className="relative cursor-pointer z-10"
             initial={{ scale: 0, opacity: 0 }}
             animate={{
-              scale: 1,
+              scale: touched ? 1.3 : 1,
               opacity: 1,
-              y: [0, -15, -5, -20, 0],
-              x: [0, 8, -5, 3, 0],
-              rotate: [0, 3, -2, 1, 0],
+              y: touched ? [0, -8, 0] : [0, -15, -5, -20, 0],
+              x: touched ? [0, 3, 0] : [0, 8, -5, 3, 0],
+              rotate: touched ? [0, 1, 0] : [0, 3, -2, 1, 0],
             }}
             transition={{
-              scale: { duration: 1, ease: "easeOut" },
+              scale: { duration: 1.5, ease: "easeOut" },
               opacity: { duration: 1 },
-              y: { duration: 12, repeat: Infinity, ease: "easeInOut" },
-              x: { duration: 15, repeat: Infinity, ease: "easeInOut" },
+              y: { duration: touched ? 8 : 12, repeat: Infinity, ease: "easeInOut" },
+              x: { duration: touched ? 10 : 15, repeat: Infinity, ease: "easeInOut" },
               rotate: { duration: 10, repeat: Infinity, ease: "easeInOut" },
             }}
             onClick={() => setTouched(true)}
-            whileHover={{ scale: 1.1 }}
+            whileHover={{ scale: touched ? 1.35 : 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
+            {/* Outer glow ring when touched */}
+            <AnimatePresence>
+              {touched && (
+                <motion.div
+                  className="absolute -inset-6 rounded-full"
+                  style={{
+                    background: `radial-gradient(circle, hsl(168 60% 88% / 0.15), hsl(275 35% 90% / 0.08), transparent 70%)`,
+                  }}
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: [1, 1.3, 1], opacity: [0, 0.6, 0.3] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                />
+              )}
+            </AnimatePresence>
+
             {/* Pendant shape */}
-            <div
-              className="w-16 h-20 rounded-full opal-shimmer relative"
+            <motion.div
+              className="w-16 h-20 opal-shimmer relative"
               style={{
                 borderRadius: "45% 45% 50% 50%",
-                boxShadow: `
-                  0 0 30px hsl(168 60% 88% / 0.3),
-                  0 0 60px hsl(275 35% 90% / 0.2),
-                  inset 0 -5px 15px hsl(340 60% 70% / 0.15)
-                `,
+                boxShadow: touched
+                  ? `0 0 40px hsl(168 60% 88% / 0.5), 0 0 80px hsl(275 35% 90% / 0.3), 0 0 120px hsl(340 60% 70% / 0.15), inset 0 0 20px hsl(168 60% 88% / 0.2)`
+                  : `0 0 30px hsl(168 60% 88% / 0.3), 0 0 60px hsl(275 35% 90% / 0.2), inset 0 -5px 15px hsl(340 60% 70% / 0.15)`,
               }}
+              animate={touched ? {
+                backgroundSize: ["400% 400%", "200% 200%", "400% 400%"],
+              } : {}}
+              transition={{ duration: 4, repeat: Infinity }}
             >
               {/* Thread */}
               <div
@@ -59,10 +76,28 @@ const OpalPendant = ({ show }: OpalPendantProps) => {
                 style={{
                   background: `radial-gradient(circle, hsl(168 60% 88% / 0.8), transparent)`,
                 }}
-                animate={{ opacity: [0.5, 1, 0.5] }}
+                animate={{
+                  opacity: touched ? [0.6, 1, 0.6] : [0.5, 1, 0.5],
+                  scale: touched ? [1, 1.5, 1] : 1,
+                }}
                 transition={{ duration: 2, repeat: Infinity }}
               />
-            </div>
+
+              {/* Inner light when touched */}
+              <AnimatePresence>
+                {touched && (
+                  <motion.div
+                    className="absolute inset-2 rounded-full"
+                    style={{
+                      background: `radial-gradient(circle at 40% 40%, hsl(168 60% 88% / 0.4), hsl(275 35% 90% / 0.2), transparent)`,
+                    }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: [0.3, 0.7, 0.3] }}
+                    transition={{ duration: 2.5, repeat: Infinity }}
+                  />
+                )}
+              </AnimatePresence>
+            </motion.div>
           </motion.div>
 
           {/* Revealed message */}
@@ -74,7 +109,6 @@ const OpalPendant = ({ show }: OpalPendantProps) => {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 2 }}
               >
-                {/* Blurred backdrop */}
                 <motion.div
                   className="absolute inset-0"
                   style={{
@@ -87,7 +121,7 @@ const OpalPendant = ({ show }: OpalPendantProps) => {
                   transition={{ duration: 3 }}
                 />
                 <motion.p
-                  className="font-display text-lg md:text-2xl tracking-widest text-center leading-relaxed z-10"
+                  className="font-display text-lg md:text-2xl tracking-widest text-center leading-relaxed z-10 max-w-xs"
                   style={{
                     color: "hsl(168 60% 88% / 0.7)",
                     textShadow: "0 0 30px hsl(168 60% 88% / 0.3)",

@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
+import { useEffect } from "react";
 
 interface TowerBeamProps {
   show: boolean;
@@ -6,6 +7,13 @@ interface TowerBeamProps {
 }
 
 const TowerBeam = ({ show, onComplete }: TowerBeamProps) => {
+  useEffect(() => {
+    if (show) {
+      const timer = setTimeout(onComplete, 3200);
+      return () => clearTimeout(timer);
+    }
+  }, [show, onComplete]);
+
   return (
     <AnimatePresence>
       {show && (
@@ -26,7 +34,6 @@ const TowerBeam = ({ show, onComplete }: TowerBeamProps) => {
           }}
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 3, ease: "easeOut" }}
-          onAnimationComplete={onComplete}
         >
           {/* Glow around beam */}
           <motion.div
