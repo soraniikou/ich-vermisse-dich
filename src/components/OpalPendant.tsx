@@ -13,6 +13,14 @@ const OpalPendant = ({ show }: OpalPendantProps) => {
   const [touched, setTouched] = useState(false);
   const [showTears, setShowTears] = useState(false);
 
+  // Reset state when hiding
+  useEffect(() => {
+    if (!show) {
+      setTouched(false);
+      setShowTears(false);
+    }
+  }, [show]);
+
   useEffect(() => {
     if (!touched) {
       setShowTears(false);
