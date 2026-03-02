@@ -24,21 +24,28 @@ const OpalPendant = ({ show }: OpalPendantProps) => {
 
   // Pre-load and unlock audio on user touch (critical for mobile)
   const handleTouch = () => {
-    const audio = new Audio("/audio/voice.m4a");
-    audio.volume = 0.8;
-    audio.load(); // pre-load
-    // Unlock audio context on mobile by playing then immediately pausing
-    const unlockPromise = audio.play();
-    if (unlockPromise) {
-      unlockPromise.then(() => {
-        audio.pause();
+    if (!touched) {
+      // First tap: unlock audio on mobile and start sequence
+      const audio = new Audio("/audio/voice.m4a");
+      audio.volume = 0.8;
+      audio.load();
+      const unlockPromise = audio.play();
+      if (unlockPromise) {
+        unlockPromise.then(() => {
+          audio.pause();
+          audio.currentTime = 0;
+        }).catch(() => {});
+      }
+      audioRef.current = audio;
+      setTouched(true);
+    } else {
+      // Subsequent taps: replay voice immediately
+      const audio = audioRef.current;
+      if (audio) {
         audio.currentTime = 0;
-      }).catch(() => {
-        // Still store the ref - we'll try again later
-      });
+        audio.play().catch(() => {});
+      }
     }
-    audioRef.current = audio;
-    setTouched(true);
   };
 
   useEffect(() => {
