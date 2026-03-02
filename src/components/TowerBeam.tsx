@@ -9,7 +9,7 @@ interface TowerBeamProps {
 const TowerBeam = ({ show, onComplete }: TowerBeamProps) => {
   useEffect(() => {
     if (show) {
-      const timer = setTimeout(onComplete, 3200);
+      const timer = setTimeout(onComplete, 9600);
       return () => clearTimeout(timer);
     }
   }, [show, onComplete]);
@@ -33,7 +33,7 @@ const TowerBeam = ({ show, onComplete }: TowerBeamProps) => {
             width: ["4px", "6px", "2px"],
           }}
           exit={{ opacity: 0, height: 0 }}
-          transition={{ duration: 3, ease: "easeOut" }}
+          transition={{ duration: 9, ease: "easeOut" }}
         >
           {/* Glow around beam */}
           <motion.div
