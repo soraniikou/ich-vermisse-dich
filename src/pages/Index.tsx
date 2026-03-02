@@ -91,8 +91,8 @@ const Index = () => {
         <AnimatePresence>
           {phase !== "complete" && (
             <motion.div
-              exit={{ scale: 0, opacity: 0 }}
-              transition={{ duration: 1.5 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 2 }}
             >
               <CrystalBowl
                 isActive={text.length > 0}

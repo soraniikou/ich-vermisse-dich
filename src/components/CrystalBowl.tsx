@@ -16,7 +16,7 @@ const CrystalBowl = ({ isActive, isIntegrating }: CrystalBowlProps) => {
           hsl(210 38% 16% / 0.3))`,
       }}
       animate={{
-        scale: isIntegrating ? [1, 0.95, 1.05, 1] : isActive ? [1, 1.02, 1] : 1,
+        scale: isActive ? [1, 1.02, 1] : 1,
         boxShadow: isActive
           ? [
               "0 0 30px hsl(168 60% 88% / 0.15), 0 0 60px hsl(275 35% 90% / 0.1)",
