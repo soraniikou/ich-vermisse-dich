@@ -122,16 +122,6 @@ const Index = () => {
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.8 }}
           >
-            {/* Input marker icon */}
-            <motion.div
-              className="flex items-center gap-2 text-muted-foreground text-xs tracking-wider"
-              animate={{ opacity: [0.4, 0.7, 0.4] }}
-              transition={{ duration: 3, repeat: Infinity }}
-            >
-              <span className="font-display">✦</span>
-              <span className="font-body">ここに気持ちを書いてください</span>
-              <span className="font-display">✦</span>
-            </motion.div>
             <div className="relative w-full">
               <motion.div
                 className="absolute -left-2 top-1/2 -translate-y-1/2 text-primary/40 text-lg"
