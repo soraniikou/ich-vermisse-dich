@@ -31,8 +31,8 @@ Tech Stack
 - **Build Tool**: Vite
 - **AI Integration**: Dify (Conceptual Backend)
 
-## 🔗 Live Demo
-[yoruwokoeru - Live App](https://ich-vermisse-dich.lovable.app)
+💧　Live Demo　💎
+(https://ich-vermisse-dich.lovable.app)
 
 ---
 「超えられない夜を、そっと抱きしめる。あなたは、泣いていい。」
