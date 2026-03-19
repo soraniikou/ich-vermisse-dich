@@ -163,7 +163,7 @@ const Index = () => {
       <AnimatePresence>
         {phase === "complete" && (
           <motion.button
-            className="absolute bottom-12 font-display text-xs tracking-[0.2em] text-muted-foreground hover:text-foreground transition-colors"
+            className="absolute bottom-16 font-display text-xs tracking-[0.2em] text-muted-foreground hover:text-foreground transition-colors"
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.5 }}
             whileHover={{ opacity: 1 }}
