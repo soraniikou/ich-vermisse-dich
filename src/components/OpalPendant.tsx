@@ -252,7 +252,7 @@ const OpalPendant = ({ show }: OpalPendantProps) => {
                       animate={{ opacity: 0.8, y: 0 }}
                       transition={{
                         duration: 0.6,
-                        delay: i * 0.15,
+                        delay: i * 0.3,
                         ease: "easeOut",
                       }}
                     >
