@@ -7,7 +7,7 @@ interface OpalPendantProps {
 
 const MESSAGE = "超えられない夜をそっと抱きしめる";
 
-const TEAR_DELAY = MESSAGE.length * 0.15 + 2; // wait for message to finish + 2s
+const TEAR_DELAY = MESSAGE.length * 0.3 + 2; // wait for message to finish + 2s
 
 const OpalPendant = ({ show }: OpalPendantProps) => {
   const [touched, setTouched] = useState(false);
