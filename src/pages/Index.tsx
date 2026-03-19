@@ -133,7 +133,7 @@ const Index = () => {
               <textarea
                 value={text}
                 onChange={handleTextChange}
-                placeholder="いま感じていることを、ここに..."
+                placeholder="いま感じていることを、ここに書いて..."
                 className="w-full bg-muted/20 rounded-lg px-4 py-3 border border-border text-foreground placeholder:text-muted-foreground font-body text-sm md:text-base resize-none focus:outline-none focus:border-primary/40 focus:ring-1 focus:ring-primary/20 transition-all text-center relative z-20"
                 style={{ caretColor: "hsl(168, 60%, 88%)" }}
                 rows={2}
