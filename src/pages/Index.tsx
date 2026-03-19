@@ -122,16 +122,6 @@ const Index = () => {
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.8 }}
           >
-            {/* Input marker icon */}
-            <motion.div
-              className="flex items-center gap-2 text-muted-foreground text-xs tracking-wider"
-              animate={{ opacity: [0.4, 0.7, 0.4] }}
-              transition={{ duration: 3, repeat: Infinity }}
-            >
-              <span className="font-display">✦</span>
-              <span className="font-body">ここに気持ちを書いてください</span>
-              <span className="font-display">✦</span>
-            </motion.div>
             <div className="relative w-full">
               <motion.div
                 className="absolute -left-2 top-1/2 -translate-y-1/2 text-primary/40 text-lg"
@@ -143,7 +133,7 @@ const Index = () => {
               <textarea
                 value={text}
                 onChange={handleTextChange}
-                placeholder="いま感じていることを、ここに..."
+                placeholder="いま感じていることを、ここに書いて..."
                 className="w-full bg-muted/20 rounded-lg px-4 py-3 border border-border text-foreground placeholder:text-muted-foreground font-body text-sm md:text-base resize-none focus:outline-none focus:border-primary/40 focus:ring-1 focus:ring-primary/20 transition-all text-center relative z-20"
                 style={{ caretColor: "hsl(168, 60%, 88%)" }}
                 rows={2}
@@ -173,7 +163,7 @@ const Index = () => {
       <AnimatePresence>
         {phase === "complete" && (
           <motion.button
-            className="absolute bottom-12 font-display text-xs tracking-[0.2em] text-muted-foreground hover:text-foreground transition-colors"
+            className="absolute bottom-16 font-display text-xs tracking-[0.2em] text-muted-foreground hover:text-foreground transition-colors"
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.5 }}
             whileHover={{ opacity: 1 }}
