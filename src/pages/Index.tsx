@@ -133,7 +133,7 @@ const Index = () => {
               <textarea
                 value={text}
                 onChange={handleTextChange}
-                placeholder="いま感じていることを、ここに書いて..."
+                placeholder="いま感じているものを、そっと置いて..."
                 className="w-full bg-muted/20 rounded-lg px-4 py-3 border border-border text-foreground placeholder:text-muted-foreground font-body text-sm md:text-base resize-none focus:outline-none focus:border-primary/40 focus:ring-1 focus:ring-primary/20 transition-all text-center relative z-20"
                 style={{ caretColor: "hsl(168, 60%, 88%)" }}
                 rows={2}
@@ -153,7 +153,7 @@ const Index = () => {
               whileHover={text.trim() ? { scale: 1.05, boxShadow: "0 0 20px hsl(168, 60%, 88%, 0.2)" } : {}}
               whileTap={text.trim() ? { scale: 0.97 } : {}}
             >
-              統 合
+              tap
             </motion.button>
           </motion.div>
         )}
