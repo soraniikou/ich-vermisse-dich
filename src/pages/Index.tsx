@@ -169,7 +169,7 @@ const Index = () => {
             whileHover={{ opacity: 1 }}
             onClick={handleReset}
           >
-            もう一度
+            back
           </motion.button>
         )}
       </AnimatePresence>
