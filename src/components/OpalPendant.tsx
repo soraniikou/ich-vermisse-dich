@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 interface OpalPendantProps {
   show: boolean;
@@ -12,7 +12,6 @@ const TEAR_DELAY = MESSAGE.length * 0.3 + 2; // wait for message to finish + 2s
 const OpalPendant = ({ show }: OpalPendantProps) => {
   const [touched, setTouched] = useState(false);
   const [showTears, setShowTears] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   // Reset state when hiding
   useEffect(() => {
@@ -22,29 +21,9 @@ const OpalPendant = ({ show }: OpalPendantProps) => {
     }
   }, [show]);
 
-  // Pre-load and unlock audio on user touch (critical for mobile)
   const handleTouch = () => {
     if (!touched) {
-      // First tap: unlock audio on mobile and start sequence
-      const audio = new Audio("/audio/voice.m4a");
-      audio.volume = 0.8;
-      audio.load();
-      const unlockPromise = audio.play();
-      if (unlockPromise) {
-        unlockPromise.then(() => {
-          audio.pause();
-          audio.currentTime = 0;
-        }).catch(() => {});
-      }
-      audioRef.current = audio;
       setTouched(true);
-    } else {
-      // Subsequent taps: replay voice immediately
-      const audio = audioRef.current;
-      if (audio) {
-        audio.currentTime = 0;
-        audio.play().catch(() => {});
-      }
     }
   };
 
@@ -57,18 +36,6 @@ const OpalPendant = ({ show }: OpalPendantProps) => {
     return () => clearTimeout(timer);
   }, [touched]);
 
-  // Play voice 2 seconds after tears appear
-  useEffect(() => {
-    if (!showTears) return;
-    const voiceTimer = setTimeout(() => {
-      const audio = audioRef.current;
-      if (audio) {
-        audio.currentTime = 0;
-        audio.play().catch(() => {});
-      }
-    }, 2000);
-    return () => clearTimeout(voiceTimer);
-  }, [showTears]);
 
   return (
     <AnimatePresence>
