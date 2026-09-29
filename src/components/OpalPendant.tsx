@@ -190,7 +190,7 @@ const OpalPendant = ({ show }: OpalPendantProps) => {
                 className="mt-6 font-body text-xs tracking-[0.2em] text-foreground/70"
                 initial={{ opacity: 0, y: -5 }}
                 animate={{ opacity: [0.5, 0.85, 0.5], y: 0 }}
-                exit={{ opacity: 0 }}
+                exit={{ opacity: 0, transition: { duration: 0.8, repeat: 0, ease: "easeOut" } }}
                 transition={{ opacity: { duration: 2.5, repeat: Infinity }, y: { duration: 0.8 } }}
               >
                 touch
