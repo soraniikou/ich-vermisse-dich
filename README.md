@@ -29,7 +29,7 @@ Tech Stack
 - **Framework**: [Lovable](https://lovable.app/)
 - **Frontend**: React, TypeScript, Tailwind CSS
 - **Build Tool**: Vite
-- **AI Integration**: Dify (Conceptual Backend)
+  AIは使用していません
 
 💧　Live Demo　💎
 (https://ich-vermisse-dich.lovable.app)
