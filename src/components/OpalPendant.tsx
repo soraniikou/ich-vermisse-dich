@@ -41,6 +41,12 @@ const OpalPendant = ({ show }: OpalPendantProps) => {
     <AnimatePresence>
       {show && (
         <div className="absolute inset-0 flex flex-col items-center justify-center">
+          {/* Full-screen tap layer: anywhere tap advances to the tears scene */}
+          <div
+            className="fixed inset-0 z-0 cursor-pointer"
+            onClick={handleTouch}
+            aria-label="touch"
+          />
           {/* Pulsing tap indicator ring */}
           <AnimatePresence>
             {!touched && (

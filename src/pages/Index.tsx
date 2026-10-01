@@ -156,7 +156,7 @@ const Index = () => {
       <AnimatePresence>
         {phase === "complete" && (
           <motion.div
-            className="absolute bottom-[calc(104px+env(safe-area-inset-bottom))] md:bottom-16 flex items-center justify-center gap-6"
+            className="absolute bottom-[calc(104px+env(safe-area-inset-bottom))] md:bottom-16 z-20 flex items-center justify-center gap-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
