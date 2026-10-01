@@ -161,10 +161,10 @@ const Index = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <Button variant="ghost" onClick={handleReset} className="min-w-20 font-display text-[1.05rem] tracking-[0.2em] text-muted-foreground hover:bg-primary/5 hover:text-foreground">
+            <Button variant="ghost" onClick={handleReset} className="min-w-20 font-display text-[1.05rem] tracking-[0.2em] text-foreground/85 hover:bg-primary/5 hover:text-foreground">
               back
             </Button>
-            <Button variant="ghost" onClick={() => setPhase("stopped")} className="min-w-20 font-display text-[1.05rem] tracking-[0.2em] text-muted-foreground hover:bg-primary/5 hover:text-foreground">
+            <Button variant="ghost" onClick={() => setPhase("stopped")} className="min-w-20 font-display text-[1.05rem] tracking-[0.2em] text-foreground/85 hover:bg-primary/5 hover:text-foreground">
               stop
             </Button>
           </motion.div>
