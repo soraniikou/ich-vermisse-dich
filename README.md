@@ -23,7 +23,7 @@ A. 入力した文字は、お使いの端末の中だけで動きます。
 <table>
   <tr>
     <td><img src="yoruwokoeru.png" width="300" alt="App Screenshot 1"></td>
-    <td><img src="yoruwokoeru1.png" width="300" alt="App Screenshot 2"></td>
+    
   </tr>
 </table>
 
