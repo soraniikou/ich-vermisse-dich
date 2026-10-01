@@ -121,7 +121,7 @@ const Index = () => {
       <AnimatePresence>
         {phase === "input" && (
           <motion.div
-            className="absolute bottom-16 md:bottom-20 w-full max-w-md px-6 flex flex-col items-center gap-4"
+            className="absolute bottom-16 w-full max-w-md px-6 flex flex-col items-center gap-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
