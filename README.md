@@ -29,14 +29,13 @@ A. 入力した文字は、お使いの端末の中だけで動きます。
 
 
   
-  <img src="yoruwokoeru1.png" width="300" alt="Screenshot 2">
-</p>
+  
 
 
 
     
-  </tr>
-</table>
+  
+
 
  ✨ Features - 主な機能
 - **Emotional Integration**: ぼやけた感情を視覚化し、光のタワーへと統合するアニメーション。
