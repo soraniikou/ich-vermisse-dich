@@ -187,7 +187,7 @@ const OpalPendant = ({ show }: OpalPendantProps) => {
           <AnimatePresence>
             {!touched && (
               <motion.span
-                className="mt-6 font-body text-xs tracking-[0.2em] text-foreground/70"
+                className="mt-6 font-body text-[1.05rem] tracking-[0.2em] text-foreground/70"
                 initial={{ opacity: 0, y: -5 }}
                 animate={{ opacity: [0.5, 0.85, 0.5], y: 0 }}
                 exit={{ opacity: 0, transition: { duration: 0.8, repeat: 0, ease: "easeOut" } }}
@@ -210,7 +210,7 @@ const OpalPendant = ({ show }: OpalPendantProps) => {
                   {MESSAGE.split("").map((char, i) => (
                     <motion.span
                       key={i}
-                      className="font-display text-lg md:text-2xl inline-block"
+                       className="font-display text-[min(1.575rem,calc((100vw-32px)/17))] md:text-[2.1rem] inline-block"
                       style={{
                       color: "hsl(190 80% 80% / 0.7)",
                       textShadow: "0 0 20px hsl(190 80% 75% / 0.3)",
