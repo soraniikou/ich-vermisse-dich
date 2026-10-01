@@ -80,7 +80,7 @@ const Index = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 1 }}
           >
-            超えられない夜を抱きしめる
+            こえられない夜をそっと抱きしめる
           </motion.h1>
         )}
       </AnimatePresence>
