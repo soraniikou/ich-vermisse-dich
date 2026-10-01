@@ -1,5 +1,6 @@
-import { useState, useCallback, useRef, useMemo } from "react";
+import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Button } from "@/components/ui/button";
 import CrystalBowl from "@/components/CrystalBowl";
 import FloatingLights, { type LightParticle } from "@/components/FloatingLights";
 import TowerBeam from "@/components/TowerBeam";
@@ -14,14 +15,13 @@ const LIGHT_COLORS = [
   "hsl(45, 70%, 80%)",    // warm gold
 ];
 
-type Phase = "input" | "integrating" | "complete";
+type Phase = "input" | "integrating" | "complete" | "stopped";
 
 const Index = () => {
   const [text, setText] = useState("");
   const [particles, setParticles] = useState<LightParticle[]>([]);
   const [phase, setPhase] = useState<Phase>("input");
   const particleIdRef = useRef(0);
-  const bowlRef = useRef<HTMLDivElement>(null);
 
   const addParticle = useCallback(() => {
     const angle = Math.random() * Math.PI * 2;
@@ -61,7 +61,12 @@ const Index = () => {
   };
 
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-background">
+    <div className="min-h-screen bg-background">
+      <motion.div
+        className={`relative min-h-screen flex flex-col items-center justify-center overflow-hidden ${phase === "stopped" ? "pointer-events-none" : ""}`}
+        animate={{ opacity: phase === "stopped" ? 0 : 1 }}
+        transition={{ duration: 1.8, ease: "easeInOut" }}
+      >
       {/* Background stars - memoize positions */}
       <BackgroundStars />
 
@@ -69,7 +74,7 @@ const Index = () => {
       <AnimatePresence>
         {phase === "input" && (
           <motion.h1
-            className="absolute top-12 font-display text-sm md:text-base tracking-[0.3em] text-muted-foreground"
+            className="absolute top-12 px-4 text-center font-display text-[1.225rem] md:text-[1.4rem] tracking-[0.3em] text-muted-foreground"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 0.6, y: 0 }}
             exit={{ opacity: 0 }}
@@ -81,15 +86,15 @@ const Index = () => {
       </AnimatePresence>
 
       {/* Main crystal area */}
-      <div ref={bowlRef} className="relative flex items-center justify-center">
+      <div className="relative flex items-center justify-center">
         {/* Floating light particles */}
         <AnimatePresence>
-          {phase !== "complete" && <FloatingLights particles={particles} />}
+          {(phase === "input" || phase === "integrating") && <FloatingLights particles={particles} />}
         </AnimatePresence>
 
         {/* Crystal bowl */}
         <AnimatePresence>
-          {phase !== "complete" && (
+          {(phase === "input" || phase === "integrating") && (
             <motion.div
               exit={{ opacity: 0 }}
               transition={{ duration: 2 }}
@@ -109,7 +114,7 @@ const Index = () => {
         />
 
         {/* Opal pendant */}
-        <OpalPendant show={phase === "complete"} />
+        <OpalPendant show={phase === "complete" || phase === "stopped"} />
       </div>
 
       {/* Input area */}
@@ -124,7 +129,7 @@ const Index = () => {
           >
             <div className="relative w-full">
               <motion.div
-                className="absolute -left-2 top-1/2 -translate-y-1/2 text-primary/40 text-lg"
+                className="absolute -left-2 top-1/2 -translate-y-1/2 text-primary/40 text-[1.575rem]"
                 animate={{ x: [0, 3, 0], opacity: [0.3, 0.6, 0.3] }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
@@ -134,45 +139,38 @@ const Index = () => {
                 value={text}
                 onChange={handleTextChange}
                 placeholder="Gently lay down what you're carrying..."
-                className="w-full bg-muted/20 rounded-lg px-4 py-3 border border-border text-foreground placeholder:text-muted-foreground font-body text-sm md:text-base resize-none focus:outline-none focus:border-primary/40 focus:ring-1 focus:ring-primary/20 transition-all text-center relative z-20"
-                style={{ caretColor: "hsl(168, 60%, 88%)" }}
+                 className="w-full bg-muted/20 rounded-lg px-4 py-3 border border-border text-foreground placeholder:text-muted-foreground font-body text-[1.225rem] md:text-[1.4rem] resize-none focus:outline-none focus:border-primary/40 focus:ring-1 focus:ring-primary/20 transition-all text-center relative z-20 caret-primary"
                 rows={2}
               />
             </div>
-            <motion.button
-              onClick={handleIntegrate}
-              className="font-display text-xs tracking-[0.25em] px-8 py-2.5 rounded-full crystal-border transition-all"
-              style={{
-                color: text.trim()
-                  ? "hsl(168, 60%, 88%)"
-                  : "hsl(210, 20%, 40%)",
-                background: text.trim()
-                  ? "hsl(168, 60%, 88%, 0.08)"
-                  : "transparent",
-              }}
-              whileHover={text.trim() ? { scale: 1.05, boxShadow: "0 0 20px hsl(168, 60%, 88%, 0.2)" } : {}}
-              whileTap={text.trim() ? { scale: 0.97 } : {}}
-            >
-              tap
-            </motion.button>
+            <Button asChild variant="outline" className="h-auto min-h-11 rounded-full border-primary/20 bg-primary/5 px-8 py-2.5 font-display text-[1.05rem] tracking-[0.25em] text-primary hover:bg-primary/10 hover:text-primary">
+              <motion.button onClick={handleIntegrate} disabled={!text.trim()} whileHover={text.trim() ? { scale: 1.05 } : undefined} whileTap={text.trim() ? { scale: 0.97 } : undefined}>
+                tap
+              </motion.button>
+            </Button>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Reset button */}
+      {/* Final actions */}
       <AnimatePresence>
         {phase === "complete" && (
-          <motion.button
-            className="absolute bottom-16 font-display text-xs tracking-[0.2em] text-muted-foreground hover:text-foreground transition-colors"
+          <motion.div
+            className="absolute bottom-16 flex items-center justify-center gap-6"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 0.5 }}
-            whileHover={{ opacity: 1 }}
-            onClick={handleReset}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
           >
-            back
-          </motion.button>
+            <Button variant="ghost" onClick={handleReset} className="min-w-20 font-display text-[1.05rem] tracking-[0.2em] text-muted-foreground hover:bg-primary/5 hover:text-foreground">
+              back
+            </Button>
+            <Button variant="ghost" onClick={() => setPhase("stopped")} className="min-w-20 font-display text-[1.05rem] tracking-[0.2em] text-muted-foreground hover:bg-primary/5 hover:text-foreground">
+              stop
+            </Button>
+          </motion.div>
         )}
       </AnimatePresence>
+      </motion.div>
     </div>
   );
 };
