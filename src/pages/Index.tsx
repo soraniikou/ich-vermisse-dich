@@ -61,9 +61,9 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-dvh bg-background">
       <motion.div
-        className={`relative min-h-screen flex flex-col items-center justify-center overflow-hidden ${phase === "stopped" ? "pointer-events-none" : ""}`}
+        className={`relative min-h-dvh flex flex-col items-center justify-center overflow-hidden ${phase === "stopped" ? "pointer-events-none" : ""}`}
         animate={{ opacity: phase === "stopped" ? 0 : 1 }}
         transition={{ duration: 1.8, ease: "easeInOut" }}
       >
@@ -156,7 +156,7 @@ const Index = () => {
       <AnimatePresence>
         {phase === "complete" && (
           <motion.div
-            className="absolute bottom-16 flex items-center justify-center gap-6"
+            className="absolute bottom-[calc(104px+env(safe-area-inset-bottom))] md:bottom-16 flex items-center justify-center gap-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
