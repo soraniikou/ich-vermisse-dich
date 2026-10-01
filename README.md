@@ -28,7 +28,7 @@ A. 入力した文字は、お使いの端末の中だけで動きます。
   
   <img src="yoruwokoeru1.png" width="300" alt="Screenshot 2">
 </p>
-![yoruwokoeru](./yoruwokoeru.png)
+
 ![yoruwokoeru1](./yoruwokoeru1.png)
 
     
