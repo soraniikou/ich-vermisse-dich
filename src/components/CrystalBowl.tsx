@@ -8,7 +8,7 @@ interface CrystalBowlProps {
 const CrystalBowl = ({ isActive, isIntegrating }: CrystalBowlProps) => {
   return (
     <motion.div
-      className="relative w-56 h-56 md:w-72 md:h-72 rounded-full crystal-glow crystal-border flex items-center justify-center"
+      className="relative w-56 h-56 md:w-[min(15.25rem,40dvh)] md:h-[min(15.25rem,40dvh)] rounded-full crystal-glow crystal-border flex items-center justify-center"
       style={{
         background: `radial-gradient(circle at 40% 35%, 
           hsl(168 60% 88% / 0.08), 
