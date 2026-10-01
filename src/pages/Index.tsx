@@ -139,7 +139,7 @@ const Index = () => {
                 value={text}
                 onChange={handleTextChange}
                 placeholder="Gently lay down what you're carrying..."
-                 className="w-full bg-muted/20 rounded-lg px-4 py-3 border border-border text-foreground placeholder:text-muted-foreground font-body text-[1.225rem] md:text-[1.4rem] resize-none focus:outline-none focus:border-primary/40 focus:ring-1 focus:ring-primary/20 transition-all text-center relative z-20 caret-primary"
+                 className="w-full bg-muted/20 rounded-lg px-4 py-3 border border-border text-foreground placeholder:text-muted-foreground font-body text-[1.225rem] md:text-[1.2rem] resize-none focus:outline-none focus:border-primary/40 focus:ring-1 focus:ring-primary/20 transition-all text-center relative z-20 caret-primary"
                 rows={2}
               />
             </div>
